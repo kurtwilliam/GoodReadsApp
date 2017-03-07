@@ -1,3 +1,13 @@
+//on click event on search bar
+//search author --> possible Google Autocomplete
+//pull author's bibliography --> attempt to avoid redundancy
+//bibliography should list:
+//book title
+//book image
+//book synopsis
+//select & add book (image) to database --> via FIREBASE
+//display chosen books in sidebar
+
 const bookApp = {};
 
 bookApp.init = function(){
