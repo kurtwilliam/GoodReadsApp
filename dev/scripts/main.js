@@ -21,25 +21,27 @@ $.ajax({
 			xmlToJSON: true,
 		}
 	}).then(function(res){
-		const authorInfo = res.GoodreadsResponse.search.results.work;
+		const bookInfo = res.GoodreadsResponse.search.results.work;
 		
-		bookApp.displayInfo(authorInfo);
+		bookApp.displayInfo(bookInfo);
 	});
 };
 
 bookApp.displayInfo = function(books) {
-	books.forEach(function(authorInfo){
-		const author = $('<h3>').text(authorInfo.best_book.author.name);
-		const title = $('<h2>').text(authorInfo.best_book.title);
-		const image = $('<img>').attr("src", authorInfo.best_book.image_url);
-		const authorType = author.filter(function(value) {
-			return value.author === "Zadie Smith";
-			});
-		console.log(authorType);
-		const bookList = $('<div>').append(title, image, author);
-		$('.booksToDiscover').append(bookList);
+	const filteredBooks = books.filter(function(book){
+		return book.best_book.author.name === "Zadie Smith"
 	});
-};
+	filteredBooks.forEach(function(bookInfo){
+		// const author = $('<h3>').text(authorInfo.best_book.author.name);
+		// const authorName = authorInfo.best_book.author.name;
+		const title = $('<h2>').text(bookInfo.best_book.title);
+		const image = $('<img>').attr("src", bookInfo.best_book.image_url);
+
+		const bookList = $('<div class="bookDiv">').append(title, image);
+		
+		$('.booksToDiscover').append(bookList);
+		});
+	};
 
 
 $(function(){
