@@ -1,20 +1,40 @@
-const bookApp = {};
+
+
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+    authDomain: "good-reads-ad835.firebaseapp.com",
+    databaseURL: "https://good-reads-ad835.firebaseio.com",
+    storageBucket: "good-reads-ad835.appspot.com",
+    messagingSenderId: "476385763960"
+  };
+  firebase.initializeApp(config);
 
 const dbRef = firebase.database().ref();
 
 dbRef.push('hello!');
 
+const bookApp = {};
+
 bookApp.init = function(){
+	bookApp.events();
 	bookApp.findBooks();
 };
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
 
-$("#submit").click(function(){
-	const authorName = $("#search").val();
-});
+bookApp.events = function(){
+	$("#userSearch").submit(function(e){
+		e.preventDefault();
+		$(".booksToDiscover").empty();
+	let authorName = $("#search").val();
 
-bookApp.findBooks = function(){
+	bookApp.findBooks(authorName);
+});
+};
+
+
+bookApp.findBooks = function(authorName){
 $.ajax({
 		url:"http://proxy.hackeryou.com",
 		method:"GET",
@@ -29,23 +49,23 @@ $.ajax({
 			xmlToJSON: true,
 		}
 	}).then(function(res){
-		const bookInfo = res.GoodreadsResponse.search.results.work;
-		
+		let bookInfo = res.GoodreadsResponse.search.results.work;
 		bookApp.displayInfo(bookInfo);
 	});
 };
 
 bookApp.displayInfo = function(books) {
-	const filteredBooks = books.filter(function(book){
-		return book.best_book.author.name === "Zadie Smith"
+	let filteredBooks = books.filter(function(book){
+		let authorName = $("#search").val();
+		return book.best_book.author.name === authorName;
 	});
 	filteredBooks.forEach(function(bookInfo){
 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
 		// const authorName = authorInfo.best_book.author.name;
-		const title = $('<h2>').text(bookInfo.best_book.title);
-		const image = $('<img>').attr("src", bookInfo.best_book.image_url);
+		let title = $('<h2>').text(bookInfo.best_book.title);
+		let image = $('<img>').attr("src", bookInfo.best_book.image_url);
 
-		const bookList = $('<div class="bookDiv">').append(title, image);
+		let bookList = $('<div class="bookDiv">').append(title, image);
 		
 		$('.booksToDiscover').append(bookList);
 		});
