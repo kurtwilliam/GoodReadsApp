@@ -1,5 +1,9 @@
 const bookApp = {};
 
+const dbRef = firebase.database().ref();
+
+dbRef.push('hello!');
+
 bookApp.init = function(){
 	bookApp.findBooks();
 };
