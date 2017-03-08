@@ -14,7 +14,7 @@ $.ajax({
 		data: {
 			reqUrl:'https://www.goodreads.com/search/index.xml',
 			params: {
-				q: "Zadie Smith",
+				// q: "Zadie Smith",
 				key: goodreadsKey,
 				search: "author"
 			},
