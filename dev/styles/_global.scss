@@ -1,0 +1,29 @@
+html{
+	font-size: 62.5%;
+}
+
+*{
+	font-size: 1.6rem;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 12px;
+	position: relative;
+
+}
+
+h1, h2 {
+	font-family: "Oswald", sans-serif;
+	font-weight: 100;
+}
+
+form #userSearch {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.container {
+	max-width: 900px;
+	margin: 0 auto; 
+}
