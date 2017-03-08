@@ -1,23 +1,4 @@
 @import 'setup';
+@import 'global';
 @import 'header';
 @import 'footer';
-
-.container {
-	max-width: 900px;
-	margin: 0 auto; 
-}
-
-body {
-	font-family: "Roboto", sans-serif;
-	font-size: 12px;
-}
-
-h1, h2 {
-	font-family: "Oswald", sans-serif;
-	font-weight: 100;
-}
-
-form #userSearch {
-	width: 80%;
-	margin: 0 auto;
-}
