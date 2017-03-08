@@ -32,6 +32,10 @@ bookApp.displayInfo = function(books) {
 		const author = $('<h3>').text(authorInfo.best_book.author.name);
 		const title = $('<h2>').text(authorInfo.best_book.title);
 		const image = $('<img>').attr("src", authorInfo.best_book.image_url);
+		const authorType = author.filter(function(value) {
+			return value.author === "Zadie Smith";
+			});
+		console.log(authorType);
 		const bookList = $('<div>').append(title, image, author);
 		$('.booksToDiscover').append(bookList);
 	});
