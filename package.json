@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/kurtwilliam/GoodReadsApp/issues"
   },
-  "homepage": "https://github.com/kurtwilliam/GoodReadsApp#readme"
+  "homepage": "https://github.com/kurtwilliam/GoodReadsApp#readme",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
 }
