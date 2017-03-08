@@ -11,29 +11,45 @@
 const bookApp = {};
 
 bookApp.init = function(){
-	bookApp.findAuthor();
+	bookApp.findBooks();
 };
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
 
-bookApp.findAuthor = function(){
+bookApp.findBooks = function(){
 $.ajax({
 		url:"http://proxy.hackeryou.com",
 		method:"GET",
 		dataType:"json",
 		data: {
-			reqUrl:'https://www.goodreads.com/api/author_url/<ID>',
+			reqUrl:'https://www.goodreads.com/search/index.xml',
 			params: {
+				q: "Zadie Smith",
 				key: goodreadsKey,
-				title: "Orson Scott Card"
+				search: "author"
 			},
-			xmlToJSON: !0,
+			xmlToJSON: true,
 		}
 	}).then(function(res){
-		const authorID = res.GoodreadsResponse.author.id;
-		console.log(authorID);
+		const authorInfo = res.GoodreadsResponse.search.results.work;
+		
+		bookApp.displayInfo(authorInfo);
 	});
 };
+
+bookApp.displayInfo = function(books) {
+	books.forEach(function(authorInfo){
+		const author = $('<h3>').text(authorInfo.best_book.author.name);
+		const title = $('<h2>').text(authorInfo.best_book.title);
+		const image = $('<img>').attr("src", authorInfo.best_book.image_url);
+		if(author !== "Zadie Smith") {
+			display: none;
+		}
+		const bookList = $('<div>').append(title, image, author);
+		$('.booksToDiscover').append(bookList);
+	});
+};
+
 
 $(function(){
 	bookApp.init();
