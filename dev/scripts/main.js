@@ -1,8 +1,20 @@
-const bookApp = {};
+
+
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+    authDomain: "good-reads-ad835.firebaseapp.com",
+    databaseURL: "https://good-reads-ad835.firebaseio.com",
+    storageBucket: "good-reads-ad835.appspot.com",
+    messagingSenderId: "476385763960"
+  };
+  firebase.initializeApp(config);
 
 const dbRef = firebase.database().ref();
 
 dbRef.push('hello!');
+
+const bookApp = {};
 
 bookApp.init = function(){
 	bookApp.findBooks();
