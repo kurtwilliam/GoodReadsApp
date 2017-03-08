@@ -10,6 +10,10 @@ bookApp.init = function(){
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
 
+$("#submit").click(function(){
+	const authorName = $("#search").val();
+});
+
 bookApp.findBooks = function(){
 $.ajax({
 		url:"http://proxy.hackeryou.com",
@@ -18,7 +22,7 @@ $.ajax({
 		data: {
 			reqUrl:'https://www.goodreads.com/search/index.xml',
 			params: {
-				// q: "Zadie Smith",
+				q: authorName,
 				key: goodreadsKey,
 				search: "author"
 			},
