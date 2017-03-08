@@ -19,9 +19,11 @@
 	form input{
 		color:white;
 		border:none;
-		width:250px;
+		min-width: 500px;
+		width: 80vw;
 		background: rgba(0,0,0,0);
 		margin:10px;
+		font-size: 150px;
 		::-webkit-input-placeholder{
 			color:white;
 		}
