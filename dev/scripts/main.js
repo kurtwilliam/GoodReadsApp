@@ -60,6 +60,7 @@ bookApp.displayInfo = function(books) {
 		return book.best_book.author.name === authorName;
 	});
 	filteredBooks.forEach(function(bookInfo){
+		let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
 		// const authorName = authorInfo.best_book.author.name;
 		let title = $('<h2>').text(bookInfo.best_book.title);
