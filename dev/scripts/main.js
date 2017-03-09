@@ -16,7 +16,6 @@ const bookApp = {};
 
 bookApp.init = function(){
 	bookApp.events();
-	bookApp.findBooks();
 };
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
@@ -31,56 +30,126 @@ bookApp.events = function(){
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
 
-		bookApp.findBooks(authorName);
-	});
-};
+	bookApp.findAuthor(authorName);
+});
 
 
-bookApp.findBooks = function(authorName){
+bookApp.findAuthor = function(authorName){
 $.ajax({
 		url:"http://proxy.hackeryou.com",
 		method:"GET",
 		dataType:"json",
 		data: {
-			reqUrl:'https://www.goodreads.com/search/index.xml',
+			reqUrl:`https://www.goodreads.com/api/author_url/<${authorName}>`,
 			params: {
-				q: authorName,
+				id: authorName,
 				key: goodreadsKey,
-				search: "author"
 			},
 			xmlToJSON: true,
 		}
 	}).then(function(res){
-		let bookInfo = res.GoodreadsResponse.search.results.work;
-		bookApp.displayInfo(bookInfo);
+		let authorID = res.GoodreadsResponse.author.id;
+		bookApp.findBooks(authorID);
 	});
 };
 
-bookApp.displayInfo = function(books) {
-	let filteredBooks = books.filter(function(book){
-		let authorName = $("#search").val();
-		return book.best_book.author.name === authorName;
+bookApp.getMoreBooks = function(authorID,pageNum) {
+	return $.ajax({
+		url:"http://proxy.hackeryou.com",
+		method:"GET",
+		dataType:"json",
+		data: {
+			reqUrl:'https://www.goodreads.com/author/list.xml',
+			params: {
+				id: authorID,
+				key: goodreadsKey,
+				page: pageNum
+			},
+			xmlToJSON: true,
+		}
 	});
-	filteredBooks.forEach(function(bookInfo){
-<<<<<<< HEAD
-		// let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-=======
-		// let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
->>>>>>> dde2a3d9c4c8d618744be3ab2fea3ad0ebc429fd
-		// const author = $('<h3>').text(authorInfo.best_book.author.name);
-		// const authorName = authorInfo.best_book.author.name;
-		let title = $('<h2>').text(bookInfo.best_book.title);
-		console.log(bookInfo.best_book);
-		let image = bookInfo.best_book.image_url;
+};
 
-		let bookList = $('<div class="bookDiv">').css('background', `url(${image})`).css('background-size', 'cover');
+bookApp.findBooks = function(authorID){
+	$.ajax({
+		url:"http://proxy.hackeryou.com",
+		method:"GET",
+		dataType:"json",
+		data: {
+			reqUrl:'https://www.goodreads.com/author/list.xml',
+			params: {
+				id: authorID,
+				key: goodreadsKey
+			},
+			xmlToJSON: true,
+		}
+	}).then(function(res){
+		res = res.GoodreadsResponse;
+		const totalBooks = res.author.books.total;
+		const pageNums = Math.ceil(totalBooks/30);
+		if(totalBooks < 30) {
+
+		}
+		else {
+			//run a call until currentPage === pageNum
+			//then get all the data
+			const pageCalls = [];
+			for(let i = 2; i <= pageNums; i++) {
+				pageCalls.push( bookApp.getMoreBooks( authorID, i ) )
+			}
+			$.when(...pageCalls)
+				.then((...bookData) => {
+					bookData = bookData.map(books => books[0])
+					console.log(bookData);
+				});
+		}
+		// let author = res.GoodreadsResponse.author.name;
+		// let title = res.GoodreadsResponse.author.books.book.title;
+		// let image = res.GoodreadsResponse.author.book.book.image_url;
+		// bookApp.displayInfo(bookInfo);
+		console.log(res);
+	});
+};
+
+
+//FIRST WEIRD SHIT BELOW
+
+// bookApp.displayInfo = function(books) {
+// 	// let filteredBooks = books.filter(function(book){
+// 	// 	let authorName = $("#search").val();
+// 	// 	return book.best_book.author.name === authorName;
+// 	// });
+// 	filteredBooks.forEach(function(bookInfo){
+// 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
+// 		// const authorName = authorInfo.best_book.author.name;
+// 		let titleDisp = $('<h2>').text(title);
+// 		let imagDisp = $('<img>').attr("src", image);
+
+// 		let bookList = $('<div class="bookDiv">').append(titleDisp, imageDisps);
 		
-		// let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
+// 		$('.booksToDiscover').append(bookList);
+// 		});
+// 	};
 
-		$('.booksToDiscover').append(bookList);
-		$('.bookDivOverlay').append(title);
-		});
-	};
+//SECOND WEIRD SHIT FOLLOWS
+
+	// filteredBooks.forEach(function(bookInfo){
+	// 	let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
+	// 	let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
+	// 	const author = $('<h3>').text(authorInfo.best_book.author.name);
+	// 	const authorName = authorInfo.best_book.author.name;
+	// 	let title = $('<h2>').text(bookInfo.best_book.title);
+	// 	console.log(bookInfo.best_book);
+	// 	let image = bookInfo.best_book.image_url;
+
+	// 	let bookList = $('<div class="bookDiv">').css('background', `url(${image})`).css('background-size', 'cover');
+		
+	// 	let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
+
+	// 	$('.booksToDiscover').append(bookList);
+	// 	$('.bookDivOverlay').append(title);
+	// 	});
+	// };
 
 
 $(function(){
