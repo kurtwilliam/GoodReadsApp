@@ -1,16 +1,16 @@
-//   // Initialize Firebase
-//   const config = {
-//     apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
-//     authDomain: "good-reads-ad835.firebaseapp.com",
-//     databaseURL: "https://good-reads-ad835.firebaseio.com",
-//     storageBucket: "good-reads-ad835.appspot.com",
-//     messagingSenderId: "476385763960"
-//   };
-//   firebase.initializeApp(config);
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+    authDomain: "good-reads-ad835.firebaseapp.com",
+    databaseURL: "https://good-reads-ad835.firebaseio.com",
+    storageBucket: "good-reads-ad835.appspot.com",
+    messagingSenderId: "476385763960"
+  };
+  firebase.initializeApp(config);
 
-// const dbRef = firebase.database().ref();
+const dbRef = firebase.database().ref();
 
-// dbRef.push('hello!');
+dbRef.push('hello!');
 
 const bookApp = {};
 
@@ -62,7 +62,11 @@ bookApp.displayInfo = function(books) {
 		return book.best_book.author.name === authorName;
 	});
 	filteredBooks.forEach(function(bookInfo){
+<<<<<<< HEAD
 		// let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
+=======
+		// let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
+>>>>>>> dde2a3d9c4c8d618744be3ab2fea3ad0ebc429fd
 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
 		// const authorName = authorInfo.best_book.author.name;
 		let title = $('<h2>').text(bookInfo.best_book.title);
