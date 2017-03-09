@@ -32,6 +32,7 @@ bookApp.events = function(){
 
 	bookApp.findAuthor(authorName);
 });
+};
 
 
 bookApp.findAuthor = function(authorName){
@@ -85,6 +86,7 @@ bookApp.findBooks = function(authorID){
 		}
 	}).then(function(res){
 		res = res.GoodreadsResponse;
+		console.log(res);
 		const totalBooks = res.author.books.total;
 		const pageNums = Math.ceil(totalBooks/30);
 		if(totalBooks < 30) {
@@ -100,14 +102,17 @@ bookApp.findBooks = function(authorID){
 			$.when(...pageCalls)
 				.then((...bookData) => {
 					bookData = bookData.map(books => books[0])
+					// console.log(bookData);
+					// const allBooks = [...bookData, ...res];
 					console.log(bookData);
 				});
-		}
+		};
+		
 		// let author = res.GoodreadsResponse.author.name;
 		// let title = res.GoodreadsResponse.author.books.book.title;
 		// let image = res.GoodreadsResponse.author.book.book.image_url;
 		// bookApp.displayInfo(bookInfo);
-		console.log(res);
+		// console.log(res + bookData);
 	});
 };
 
