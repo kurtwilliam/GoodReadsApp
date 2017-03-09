@@ -1,3 +1,6 @@
+main{
+}
+
 .initStyle{
 	width:100%;
 	height:100vh;
@@ -43,6 +46,7 @@
 }
 
 .style{
+	display:inline-block;
 	min-width: 330px;
 	width: 30%;
 	height:auto;
@@ -52,6 +56,7 @@
 	background-color: #F6C417;
 	color:white;
 	padding:15px;
+	// float: left;
 	h1{
 		font-size: 4rem;
 		margin:0;
@@ -99,6 +104,8 @@
 }
 
 .yourBooks{
+	// float:left;
+
 	min-width: 330px;
 	width: 30%;
 	position:relative;
