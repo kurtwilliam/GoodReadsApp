@@ -1,18 +1,16 @@
+//   // Initialize Firebase
+//   const config = {
+//     apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+//     authDomain: "good-reads-ad835.firebaseapp.com",
+//     databaseURL: "https://good-reads-ad835.firebaseio.com",
+//     storageBucket: "good-reads-ad835.appspot.com",
+//     messagingSenderId: "476385763960"
+//   };
+//   firebase.initializeApp(config);
 
+// const dbRef = firebase.database().ref();
 
-  // Initialize Firebase
-  const config = {
-    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
-    authDomain: "good-reads-ad835.firebaseapp.com",
-    databaseURL: "https://good-reads-ad835.firebaseio.com",
-    storageBucket: "good-reads-ad835.appspot.com",
-    messagingSenderId: "476385763960"
-  };
-  firebase.initializeApp(config);
-
-const dbRef = firebase.database().ref();
-
-dbRef.push('hello!');
+// dbRef.push('hello!');
 
 const bookApp = {};
 
@@ -28,6 +26,7 @@ bookApp.events = function(){
 		e.preventDefault();
 		$(".booksToDiscover").empty();
 	let authorName = $("#search").val();
+	$('header').css("width", "330px");
 
 	bookApp.findBooks(authorName);
 });
@@ -63,11 +62,15 @@ bookApp.displayInfo = function(books) {
 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
 		// const authorName = authorInfo.best_book.author.name;
 		let title = $('<h2>').text(bookInfo.best_book.title);
-		let image = $('<img>').attr("src", bookInfo.best_book.image_url);
+		console.log(bookInfo.best_book);
+		let image = bookInfo.best_book.image_url;
 
-		let bookList = $('<div class="bookDiv">').append(title, image);
+		let bookList = $('<div class="bookDiv">').css('background', `url(${image})`);
 		
+		// let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
+
 		$('.booksToDiscover').append(bookList);
+		$('.bookDivOverlay').append(title);
 		});
 	};
 
