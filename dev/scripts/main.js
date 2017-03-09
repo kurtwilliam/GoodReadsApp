@@ -62,11 +62,8 @@ bookApp.displayInfo = function(books) {
 		return book.best_book.author.name === authorName;
 	});
 	filteredBooks.forEach(function(bookInfo){
-<<<<<<< HEAD
 		// let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-=======
-		// let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
->>>>>>> dde2a3d9c4c8d618744be3ab2fea3ad0ebc429fd
+
 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
 		// const authorName = authorInfo.best_book.author.name;
 		let title = $('<h2>').text(bookInfo.best_book.title);
@@ -76,9 +73,14 @@ bookApp.displayInfo = function(books) {
 		let bookList = $('<div class="bookDiv">').css('background', `url(${image})`).css('background-size', 'cover');
 		
 		// let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
-
+		function decodeHtml(html) {
+		    var txt = document.createElement("textarea");
+		    txt.innerHTML = html;
+		    return txt.value;
+		}
 		$('.booksToDiscover').append(bookList);
 		$('.bookDivOverlay').append(title);
+		
 		});
 	};
 
