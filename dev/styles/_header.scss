@@ -1,8 +1,5 @@
-main{
-}
-
 .initStyle{
-	width:100%;
+	width:100vw;
 	height:100vh;
 	display:flex; 
 	justify-content: center;
@@ -99,13 +96,11 @@ main{
 	}
 }
 
-.headerBottom{
-	
+.yourBooksHidden{
+	display:none;
 }
 
 .yourBooks{
-	// float:left;
-
 	min-width: 330px;
 	width: 30%;
 	position:relative;
@@ -113,6 +108,7 @@ main{
 	height:calc(100vh - 189px);
 	display: flex;
 	justify-content: center;
+	overflow-y: scroll;
 	h2{
 		font-size: 2.4rem;
 		margin:0;
