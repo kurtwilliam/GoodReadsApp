@@ -130,6 +130,7 @@ bookApp.findBooks = function(authorID){
 		// bookApp.displayInfo(bookInfo);
 		console.log(res);
 	});
+};
 
 bookApp.displayInfo = function(books){
 	let filteredBooks = books.filter(function(book){
