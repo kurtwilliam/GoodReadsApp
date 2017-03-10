@@ -49,9 +49,8 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-
-		bookApp.findAuthor(authorName);
-	});
+	bookApp.findAuthor(authorName);
+});
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -107,6 +106,7 @@ bookApp.findBooks = function(authorID){
 		}
 	}).then(function(res){
 		res = res.GoodreadsResponse;
+		// console.log(res);
 		const totalBooks = res.author.books.total;
 		const pageNums = Math.ceil(totalBooks/30);
 		if(totalBooks < 30) {
@@ -121,65 +121,38 @@ bookApp.findBooks = function(authorID){
 			$.when(...pageCalls)
 				.then((...bookData) => {
 					bookData = bookData.map(books => books[0])
-					console.log(bookData);
+					res = {
+						GoodreadsResponse: {
+							Request: res.Request,
+							author: res.author
+						}
+					}
+					bookData.unshift(res);
+					bookApp.displayInfo(bookData);
 				});
-		}
-		// let author = res.GoodreadsResponse.author.name;
-		// let title = res.GoodreadsResponse.author.books.book.title;
-		// let image = res.GoodreadsResponse.author.book.book.image_url;
-		// bookApp.displayInfo(bookInfo);
-		console.log(res);
+		};
 	});
 
-bookApp.displayInfo = function(books){
-	let filteredBooks = books.filter(function(book){
-		let authorName = $('#search').val();
-		return books.author.books.name === authorName;
-		console.log(authorname);
-	});
-	filteredBooks.forEach(function(bookInfo){
-		const author = $('<h3>').text(author.books.book.bookInfo.title);
-	});
 };
 
-//FIRST WEIRD SHIT BELOW
+bookApp.displayInfo = function(bookData){
+	let goodReadsObjects = bookData.filter(function(bookArray){
+		let authorName = $('#search').val();
+		return bookArray.GoodreadsResponse.author.name === authorName;
+	});
+	goodReadsObjects.forEach(function(obj){
+		const authorsBooks = obj.GoodreadsResponse.author.books.book;
+		authorsBooks.forEach(function(book){
 
-// bookApp.displayInfo = function(books) {
-// 	// let filteredBooks = books.filter(function(book){
-// 	// 	let authorName = $("#search").val();
-// 	// 	return book.best_book.author.name === authorName;
-// 	// });
-// 	filteredBooks.forEach(function(bookInfo){
-// 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
-// 		// const authorName = authorInfo.best_book.author.name;
-// 		let titleDisp = $('<h2>').text(title);
-// 		let imagDisp = $('<img>').attr("src", image);
-
-// 		let bookList = $('<div class="bookDiv">').append(titleDisp, imageDisps);
-		
-// 		$('.booksToDiscover').append(bookList);
-// 		});
-// 	};
-
-//SECOND WEIRD SHIT FOLLOWS
-
-	// filteredBooks.forEach(function(bookInfo){
-	// 	let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-	// 	let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-	// 	const author = $('<h3>').text(authorInfo.best_book.author.name);
-	// 	const authorName = authorInfo.best_book.author.name;
-	// 	let title = $('<h2>').text(bookInfo.best_book.title);
-	// 	console.log(bookInfo.best_book);
-	// 	let image = bookInfo.best_book.image_url;
-
-	// 	let bookList = $('<div class="bookDiv">').css('background', `url(${image})`).css('background-size', 'cover');
-		
-	// 	let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
-
-	// 	$('.booksToDiscover').append(bookList);
-	// 	$('.bookDivOverlay').append(title);
-	// 	});
-	// };
+			let bookTitle = $('<h3>').text(book.title);
+			console.log
+			let bookDescription = $('<p>').text(book.description);
+			let bookImage = $('<img>').attr("src", book.image_url);
+			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage);
+			$('.booksToDiscover').append(bookDisplay);
+		})
+	});
+};
 
 $(function(){
 	bookApp.init();
