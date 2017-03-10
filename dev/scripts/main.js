@@ -142,8 +142,13 @@ bookApp.findBooks = function(authorID){
 					bookData.unshift(res);
 					bookApp.displayInfo(bookData);
 				});
+		}
+		// let author = res.GoodreadsResponse.author.name;
+		// let title = res.GoodreadsResponse.author.books.book.title;
+		// let image = res.GoodreadsResponse.author.book.book.image_url;
+		// bookApp.displayInfo(bookInfo);
+		console.log(res);
 		};
-	});
 };
 
 
