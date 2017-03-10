@@ -26,5 +26,18 @@ main{
 		// background: no-repeat;
 		margin: 10px;
 	}
-	
+}
+
+.modalHidden {
+	display: none;
+}
+
+.loginModal{
+	padding:20px; 
+	z-index: 100;
+	width:auto;
+	height:auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

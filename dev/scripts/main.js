@@ -1,26 +1,36 @@
-  // Initialize Firebase
-//   const config = {
-//     apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
-//     authDomain: "good-reads-ad835.firebaseapp.com",
-//     databaseURL: "https://good-reads-ad835.firebaseio.com",
-//     storageBucket: "good-reads-ad835.appspot.com",
-//     messagingSenderId: "476385763960"
-//   };
-//   firebase.initializeApp(config);
+// Initialize Firebase
+const config = {
+ apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+ authDomain: "good-reads-ad835.firebaseapp.com",
+ databaseURL: "https://good-reads-ad835.firebaseio.com",
+ storageBucket: "good-reads-ad835.appspot.com",
+ messagingSenderId: "476385763960"
+};
+firebase.initializeApp(config);
 
-// const dbRef = firebase.database().ref();
+const dbRef = firebase.database().ref();
 
-// dbRef.push('hello!');
+dbRef.push('hello!');
+
+
+
+// ADD TO COLLECTION BUTTON
+// 1. Check if user is signed in!
+//	2. If signed in, add to collection
+// 3. If not signed in, pop up modal appears
+// 4. User chooses to sign in or sign up
+// 5. Depending on button press a sign in/up form appears
 
 // user creates acct (enters something for their own key)
 
 
 const bookApp = {};
 
-// bookApp.firebase = function(){
+bookApp.firebase = function(){
 // 	// on submit function, prevent default 
-// 	$('.chosenBook').submit(function(e){
-// 		e.preventDefault();
+	$('.chosenBook').submit(function(e){
+		e.preventDefault();
+		$('loginModal').toggleClass('modalHidden');
 		// Store data to send to database in a var
 		// var chosenBook = 
 
@@ -28,8 +38,8 @@ const bookApp = {};
 		// dbRef.push('hello!');
 		// display on left from firebase
 		// button that deletes item from firebase - therefore deleting from our website
-// 	});
-// };
+	});
+};
 		// retrieve information from firebase
 
 bookApp.init = function(){
@@ -49,9 +59,10 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-
+		$('.signIn').addClass('signInHidden');
 		bookApp.findAuthor(authorName);
 	});
+
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -107,6 +118,7 @@ bookApp.findBooks = function(authorID){
 		}
 	}).then(function(res){
 		res = res.GoodreadsResponse;
+		// console.log(res);
 		const totalBooks = res.author.books.total;
 		const pageNums = Math.ceil(totalBooks/30);
 		if(totalBooks < 30) {
@@ -121,7 +133,14 @@ bookApp.findBooks = function(authorID){
 			$.when(...pageCalls)
 				.then((...bookData) => {
 					bookData = bookData.map(books => books[0])
-					console.log(bookData);
+					res = {
+						GoodreadsResponse: {
+							Request: res.Request,
+							author: res.author
+						}
+					}
+					bookData.unshift(res);
+					bookApp.displayInfo(bookData);
 				});
 		}
 		// let author = res.GoodreadsResponse.author.name;
@@ -129,60 +148,30 @@ bookApp.findBooks = function(authorID){
 		// let image = res.GoodreadsResponse.author.book.book.image_url;
 		// bookApp.displayInfo(bookInfo);
 		console.log(res);
-
-	});
-	};
-
-
-bookApp.displayInfo = function(books){
-	let filteredBooks = books.filter(function(book){
-		let authorName = $('#search').val();
-		return books.author.books.name === authorName;
-		console.log(authorname);
-	});
-	filteredBooks.forEach(function(bookInfo){
-		const author = $('<h3>').text(author.books.book.bookInfo.title);
-	});
+		};
 };
 
-//FIRST WEIRD SHIT BELOW
 
-// bookApp.displayInfo = function(books) {
-// 	// let filteredBooks = books.filter(function(book){
-// 	// 	let authorName = $("#search").val();
-// 	// 	return book.best_book.author.name === authorName;
-// 	// });
-// 	filteredBooks.forEach(function(bookInfo){
-// 		// const author = $('<h3>').text(authorInfo.best_book.author.name);
-// 		// const authorName = authorInfo.best_book.author.name;
-// 		let titleDisp = $('<h2>').text(title);
-// 		let imagDisp = $('<img>').attr("src", image);
+bookApp.displayInfo = function(bookData){
+	let goodReadsObjects = bookData.filter(function(bookArray){
+		let authorName = $('#search').val();
+		return bookArray.GoodreadsResponse.author.name === authorName;
+	});
+	goodReadsObjects.forEach(function(obj){
+		const authorsBooks = obj.GoodreadsResponse.author.books.book;
+		authorsBooks.forEach(function(book){
 
-// 		let bookList = $('<div class="bookDiv">').append(titleDisp, imageDisps);
-		
-// 		$('.booksToDiscover').append(bookList);
-// 		});
-// 	};
+			let bookTitle = $('<h3>').text(book.title);
+			console.log
+			let bookDescription = $('<p>').text(book.description);
+			let bookImage = $('<img>').attr("src", book.image_url);
+			let bookButton = $('<button class="chosenBook">').text('Add to Collection');
+			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookButton);
 
-//SECOND WEIRD SHIT FOLLOWS
-
-	// filteredBooks.forEach(function(bookInfo){
-	// 	let authorID = bookInfo.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-	// 	let authorID = res.GoodreadsResponse.search.results.work[0].best_book.author.id.$t;
-	// 	const author = $('<h3>').text(authorInfo.best_book.author.name);
-	// 	const authorName = authorInfo.best_book.author.name;
-	// 	let title = $('<h2>').text(bookInfo.best_book.title);
-	// 	console.log(bookInfo.best_book);
-	// 	let image = bookInfo.best_book.image_url;
-
-	// 	let bookList = $('<div class="bookDiv">').css('background', `url(${image})`).css('background-size', 'cover');
-		
-	// 	let bookListOverlay = $('<div class="bookDivOverlay">').append(title);
-
-	// 	$('.booksToDiscover').append(bookList);
-	// 	$('.bookDivOverlay').append(title);
-	// 	});
-	// };
+			$('.booksToDiscover').append(bookDisplay);
+		})
+	});
+};
 
 $(function(){
 	bookApp.init();
