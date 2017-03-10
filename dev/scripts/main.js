@@ -148,7 +148,7 @@ bookApp.displayInfo = function(bookData){
 			console.log
 			let bookDescription = $('<p>').text(book.description);
 			let bookImage = $('<img>').attr("src", book.image_url);
-			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage);
+			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookDescription);
 			$('.booksToDiscover').append(bookDisplay);
 		})
 	});
