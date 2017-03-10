@@ -49,18 +49,9 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-
-<<<<<<< HEAD
 	bookApp.findAuthor(authorName);
 });
 };
-
-
-=======
-		bookApp.findAuthor(authorName);
-	});
-};
->>>>>>> 6c4018247aa254a815e48ee3bc851673abd9c6b3
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
 bookApp.findAuthor = function(authorName){
