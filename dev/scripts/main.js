@@ -105,6 +105,9 @@ bookApp.findBooks = function(authorID){
 					// console.log(bookData);
 					// const allBooks = [...bookData, ...res];
 					console.log(bookData);
+
+					const trial = new Map(bookData);
+					console.log(trial);
 				});
 		};
 		
