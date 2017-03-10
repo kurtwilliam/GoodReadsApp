@@ -1,26 +1,36 @@
-  // Initialize Firebase
-//   const config = {
-//     apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
-//     authDomain: "good-reads-ad835.firebaseapp.com",
-//     databaseURL: "https://good-reads-ad835.firebaseio.com",
-//     storageBucket: "good-reads-ad835.appspot.com",
-//     messagingSenderId: "476385763960"
-//   };
-//   firebase.initializeApp(config);
+// Initialize Firebase
+const config = {
+ apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+ authDomain: "good-reads-ad835.firebaseapp.com",
+ databaseURL: "https://good-reads-ad835.firebaseio.com",
+ storageBucket: "good-reads-ad835.appspot.com",
+ messagingSenderId: "476385763960"
+};
+firebase.initializeApp(config);
 
-// const dbRef = firebase.database().ref();
+const dbRef = firebase.database().ref();
 
-// dbRef.push('hello!');
+dbRef.push('hello!');
+
+
+
+// ADD TO COLLECTION BUTTON
+// 1. Check if user is signed in!
+//	2. If signed in, add to collection
+// 3. If not signed in, pop up modal appears
+// 4. User chooses to sign in or sign up
+// 5. Depending on button press a sign in/up form appears
 
 // user creates acct (enters something for their own key)
 
 
 const bookApp = {};
 
-// bookApp.firebase = function(){
+bookApp.firebase = function(){
 // 	// on submit function, prevent default 
-// 	$('.chosenBook').submit(function(e){
-// 		e.preventDefault();
+	$('.chosenBook').submit(function(e){
+		e.preventDefault();
+		$('loginModal').toggleClass('modalHidden');
 		// Store data to send to database in a var
 		// var chosenBook = 
 
@@ -28,8 +38,8 @@ const bookApp = {};
 		// dbRef.push('hello!');
 		// display on left from firebase
 		// button that deletes item from firebase - therefore deleting from our website
-// 	});
-// };
+	});
+};
 		// retrieve information from firebase
 
 bookApp.init = function(){
@@ -49,8 +59,10 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-	bookApp.findAuthor(authorName);
-});
+		$('.signIn').addClass('signInHidden');
+		bookApp.findAuthor(authorName);
+	});
+
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -132,8 +144,8 @@ bookApp.findBooks = function(authorID){
 				});
 		};
 	});
-
 };
+
 
 bookApp.displayInfo = function(bookData){
 	let goodReadsObjects = bookData.filter(function(bookArray){
@@ -148,7 +160,8 @@ bookApp.displayInfo = function(bookData){
 			console.log
 			let bookDescription = $('<p>').text(book.description);
 			let bookImage = $('<img>').attr("src", book.image_url);
-			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookDescription);
+			let bookButton = $('<button class="chosenBook">').text('Add to Collection');
+			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookDescription, bookButton);
 			$('.booksToDiscover').append(bookDisplay);
 		})
 	});
