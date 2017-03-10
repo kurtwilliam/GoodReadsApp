@@ -62,6 +62,7 @@ bookApp.events = function(){
 		$('.signIn').addClass('signInHidden');
 		bookApp.findAuthor(authorName);
 	});
+
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -163,7 +164,6 @@ bookApp.displayInfo = function(bookData){
 			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookButton);
 
 			$('.booksToDiscover').append(bookDisplay);
-
 		})
 	});
 };
