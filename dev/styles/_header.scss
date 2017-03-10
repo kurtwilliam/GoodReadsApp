@@ -16,28 +16,28 @@
 		font-size: 2.8rem;
 		margin:10px;
 	}
-	form input{
+	#userSearch input{
 		color:white;
 		border:none;
 		min-width: 500px;
 		width: 80vw;
 		background: rgba(0,0,0,0);
 		margin:10px;
-		font-size: 150px;
+		font-size: 5rem;
 		::-webkit-input-placeholder{
 			color:white;
 		}
 	}
-	form input::-webkit-input-placeholder{
+	#userSearch input::-webkit-input-placeholder{
 		color:whitesmoke;
 	}
-	form input::-moz-placeholder{
+	#userSearch input::-moz-placeholder{
 		color:whitesmoke;
 	}
-	form input:focus{
+	#userSearch input:focus{
 		outline: 0;
 	}
-	form button {
+	#userSearch button {
 		color:white;
 		background-color: rgba(0,0,0,0);
 		border:none;
@@ -117,4 +117,8 @@
 		color:white;
 		padding:10px;
 	}
+}
+
+.signInHidden{
+	display:none;
 }
