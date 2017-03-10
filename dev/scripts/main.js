@@ -59,7 +59,7 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-		$('.signIn').addClass('signInHidden');
+		$('.loginModal').addClass('signInHidden');
 		bookApp.findAuthor(authorName);
 	});
 
@@ -161,7 +161,7 @@ bookApp.displayInfo = function(bookData){
 			let bookDescription = $('<p>').text(book.description);
 			let bookImage = $('<img>').attr("src", book.image_url);
 			let bookButton = $('<button class="chosenBook">').text('Add to Collection');
-			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookButton);
+			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookDescription, bookButton);
 
 			$('.booksToDiscover').append(bookDisplay);
 		})
