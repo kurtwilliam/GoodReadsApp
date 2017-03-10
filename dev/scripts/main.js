@@ -1,18 +1,36 @@
   // Initialize Firebase
-  const config = {
-    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
-    authDomain: "good-reads-ad835.firebaseapp.com",
-    databaseURL: "https://good-reads-ad835.firebaseio.com",
-    storageBucket: "good-reads-ad835.appspot.com",
-    messagingSenderId: "476385763960"
-  };
-  firebase.initializeApp(config);
+//   const config = {
+//     apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+//     authDomain: "good-reads-ad835.firebaseapp.com",
+//     databaseURL: "https://good-reads-ad835.firebaseio.com",
+//     storageBucket: "good-reads-ad835.appspot.com",
+//     messagingSenderId: "476385763960"
+//   };
+//   firebase.initializeApp(config);
 
-const dbRef = firebase.database().ref();
+// const dbRef = firebase.database().ref();
 
-dbRef.push('hello!');
+// dbRef.push('hello!');
+
+// user creates acct (enters something for their own key)
+
 
 const bookApp = {};
+
+// bookApp.firebase = function(){
+// 	// on submit function, prevent default 
+// 	$('.chosenBook').submit(function(e){
+// 		e.preventDefault();
+		// Store data to send to database in a var
+		// var chosenBook = 
+
+		// user adds book to their database (send to firebase)
+		// dbRef.push('hello!');
+		// display on left from firebase
+		// button that deletes item from firebase - therefore deleting from our website
+// 	});
+// };
+		// retrieve information from firebase
 
 bookApp.init = function(){
 	bookApp.events();
@@ -24,6 +42,7 @@ bookApp.events = function(){
 	$("#userSearch").submit(function(e){
 		e.preventDefault();
 		$(".booksToDiscover").empty();
+
 		let authorName = $("#search").val();
 		// $('header').css("width", "330px");
 		$('.header').removeClass('initStyle').addClass('style');
@@ -32,6 +51,7 @@ bookApp.events = function(){
 
 	bookApp.findAuthor(authorName);
 });
+
 
 
 bookApp.findAuthor = function(authorName){
@@ -68,7 +88,7 @@ bookApp.getMoreBooks = function(authorID,pageNum) {
 			xmlToJSON: true,
 		}
 	});
-};
+
 
 bookApp.findBooks = function(authorID){
 	$.ajax({
@@ -150,6 +170,7 @@ bookApp.findBooks = function(authorID){
 	// 	$('.bookDivOverlay').append(title);
 	// 	});
 	// };
+
 
 
 $(function(){
