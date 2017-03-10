@@ -38,6 +38,7 @@ bookApp.init = function(){
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
 
+// Upon submission of the form empty the results, style the page (first submission), search the api for results with the value of the users search
 bookApp.events = function(){
 	$("#userSearch").submit(function(e){
 		e.preventDefault();
@@ -49,11 +50,11 @@ bookApp.events = function(){
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
 
-	bookApp.findAuthor(authorName);
-});
+		bookApp.findAuthor(authorName);
+	});
+};
 
-
-
+// Make a first call to the API based on the users input (authors name), in submit event above. 
 bookApp.findAuthor = function(authorName){
 $.ajax({
 		url:"http://proxy.hackeryou.com",
@@ -63,7 +64,7 @@ $.ajax({
 			reqUrl:`https://www.goodreads.com/api/author_url/<${authorName}>`,
 			params: {
 				id: authorName,
-				key: goodreadsKey,
+				key: goodreadsKey
 			},
 			xmlToJSON: true,
 		}
@@ -73,6 +74,7 @@ $.ajax({
 	});
 };
 
+// Make a second call to the API to pull the following pages of books, based on bookApp.findBooks
 bookApp.getMoreBooks = function(authorID,pageNum) {
 	return $.ajax({
 		url:"http://proxy.hackeryou.com",
@@ -88,7 +90,7 @@ bookApp.getMoreBooks = function(authorID,pageNum) {
 			xmlToJSON: true,
 		}
 	});
-
+};
 
 bookApp.findBooks = function(authorID){
 	$.ajax({
@@ -108,7 +110,6 @@ bookApp.findBooks = function(authorID){
 		const totalBooks = res.author.books.total;
 		const pageNums = Math.ceil(totalBooks/30);
 		if(totalBooks < 30) {
-
 		}
 		else {
 			//run a call until currentPage === pageNum
@@ -129,8 +130,17 @@ bookApp.findBooks = function(authorID){
 		// bookApp.displayInfo(bookInfo);
 		console.log(res);
 	});
-};
 
+bookApp.displayInfo = function(books){
+	let filteredBooks = books.filter(function(book){
+		let authorName = $('#search').val();
+		return books.author.books.name === authorName;
+		console.log(authorname);
+	});
+	filteredBooks.forEach(function(bookInfo){
+		const author = $('<h3>').text(author.books.book.bookInfo.title);
+	});
+};
 
 //FIRST WEIRD SHIT BELOW
 
@@ -170,8 +180,6 @@ bookApp.findBooks = function(authorID){
 	// 	$('.bookDivOverlay').append(title);
 	// 	});
 	// };
-
-
 
 $(function(){
 	bookApp.init();
