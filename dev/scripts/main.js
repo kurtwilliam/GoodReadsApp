@@ -8,11 +8,38 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const dbRef = firebase.database().ref();
+// FIREBASE New User Sign Up
+// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   // ...
+// });
 
-dbRef.push('hello!');
+// FIREBASE Existing User Sign In
+//firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   // ...
+// });
 
-
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//     var displayName = user.displayName;
+//     var email = user.email;
+//     var emailVerified = user.emailVerified;
+//     var photoURL = user.photoURL;
+//     var isAnonymous = user.isAnonymous;
+//     var uid = user.uid;
+//     var providerData = user.providerData;
+//     // ...
+//   } else {
+//     // User is signed out.
+//     // ...
+//   }
+// });
 
 // ADD TO COLLECTION BUTTON
 // 1. Check if user is signed in!
@@ -28,9 +55,15 @@ const bookApp = {};
 
 bookApp.firebase = function(){
 // 	// on submit function, prevent default 
-	$('.chosenBook').submit(function(e){
+	$('#userSearch').on('submit', function(e){
 		e.preventDefault();
-		$('loginModal').toggleClass('modalHidden');
+		console.log('meeeee');
+		bookApp.username = $('input[name=user]').val();
+		bookApp.dbRef = firebase.database().ref(bookApp.username);
+		bookApp.showData();
+		// console.log("sdfsdfsdfsdfsdf", dbRef);
+
+		// dbRef.push();
 		// Store data to send to database in a var
 		// var chosenBook = 
 
@@ -40,10 +73,17 @@ bookApp.firebase = function(){
 		// button that deletes item from firebase - therefore deleting from our website
 	});
 };
-		// retrieve information from firebase
+	
+// retrieve information from firebase
+bookApp.showData =function() {
+	bookApp.dbRef.on('value', (data) => {
+		console.log(data.val())
+	});
+}
 
 bookApp.init = function(){
 	bookApp.events();
+	bookApp.firebase();
 };
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
@@ -63,6 +103,20 @@ bookApp.events = function(){
 		bookApp.findAuthor(authorName);
 	});
 
+	$('.bookDisplay').click(function(e){
+		$('.modal').removeClass('modalHidden');
+	});
+
+	// Click event to add to users collection here
+	$('.booksToDiscover').on("click", ".chosenBook", function(e){
+		e.preventDefault();
+		var bookTitle = $(this).attr('value');
+		// console.log("title", bookApp.displayTitle);
+		bookApp.dbRef.push(bookTitle);
+		// bookApp.dbRef.on('value', (data) => {
+
+		// });
+	});
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -142,8 +196,13 @@ bookApp.findBooks = function(authorID){
 					bookData.unshift(res);
 					bookApp.displayInfo(bookData);
 				});
-		};
-	});
+		}
+		// let author = res.GoodreadsResponse.author.name;
+		// let title = res.GoodreadsResponse.author.books.book.title;
+		// let image = res.GoodreadsResponse.author.book.book.image_url;
+		// bookApp.displayInfo(bookInfo);
+		console.log(res);
+		});
 };
 
 
@@ -156,14 +215,17 @@ bookApp.displayInfo = function(bookData){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
 
-			let bookTitle = $('<h3>').text(book.title);
-			console.log
-			let bookDescription = $('<p>').text(book.description);
+			bookApp.displayTitle = book.title;
+			bookApp.bookTitle = $('<h3>').html(book.title);
+			let bookDescription = $('<p>').html(book.description);
 			let bookImage = $('<img>').attr("src", book.image_url);
-			let bookButton = $('<button class="chosenBook">').text('Add to Collection');
-			let bookDisplay = $('<div class="testDiv">').append(bookTitle, bookImage, bookDescription, bookButton);
+			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
+				title: book.title,	
+			});
+			let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
 
 			$('.booksToDiscover').append(bookDisplay);
+			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
 		})
 	});
 };

@@ -13,24 +13,13 @@
 			<h1>bookshare</h1>
 			<h2>choose your author</h2>
 			<form id="userSearch" autocomplete="off" action="submit">
-				<input type="text" placeholder="eg. Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch">
+				<input type="text" value="Judy Blume" placeholder="eg. Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch">
 				<button type="submit" for="search"><i class="fa fa-search" aria-hidden="true"></i></button>
 			</form>
-			<div class="loginModal">
-				<button class="existingUser">existing user</button>
-				<p> / </p>
-				<button class="newUser">new user</button>
-				<form action='' class="existSignIn">
-					<label for="email">Enter your email</label>
-					<input type="email" name="email">
-					<label for="password">Enter your password</label>
-					<input type="password" name="password">
-				</form>
-				<form action='' class="newSignIn">
-					<label for="email">Enter your email</label>
-					<input type="email" name="email">
-					<label for="password">Enter your password</label>
-					<input type="password" name="password">
+			<div class="userForm">
+				<form action="" class="user">
+					<label for="user">Enter your Username</label>
+					<input type="text" name="user">
 				</form>
 			</div>
 		</div>
