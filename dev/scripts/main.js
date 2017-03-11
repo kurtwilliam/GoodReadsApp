@@ -64,11 +64,7 @@ bookApp.firebase = function(){
 			// bookApp.dbRef.push();
 			bookApp.showData();
 			$('.userInput').val('');
-		} else {
-			alert('Please enter a username!');
 		}
-		
-
 		
 		// Store data to send to database in a var
 		// var chosenBook = 
@@ -96,7 +92,7 @@ const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
 
 // Upon submission of the form empty the results, style the page (first submission), search the api for results with the value of the users search
 bookApp.events = function(){
-	$("#userSearch").submit(function(e){
+	$(".userSearch").submit(function(e){
 		e.preventDefault();
 		$(".booksToDiscover").empty();
 
@@ -104,7 +100,7 @@ bookApp.events = function(){
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-		$('.userForm').addClass('userFormHidden');
+		$('.userInput').addClass('userFormHidden');
 		bookApp.findAuthor(authorName);
 		// Prevent submission of homepage search if both fields are empty
 		// if ($('') {
@@ -124,6 +120,7 @@ bookApp.events = function(){
 		// Append Data to the .headerBottom class div!
 		bookApp.dbRef.on('value', (data) => {
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
+			// $('.chosenBookEl').remove();
 			console.log(chosenBookEl);
 			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
 
