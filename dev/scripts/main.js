@@ -59,7 +59,7 @@ bookApp.firebase = function(){
 		e.preventDefault();
 		if ('input[name=user]' !== '') {
 			bookApp.username = $('input[name=user]').val();
-			console.log(bookApp.username);
+			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
 			// bookApp.dbRef.push();
 			bookApp.showData();
@@ -130,6 +130,7 @@ bookApp.events = function(){
 		e.preventDefault();
 		bookApp.selectBookTitle = $(this).attr('value');
 		// console.log("title", bookApp.displayTitle);
+
 		bookApp.dbRef.push(bookApp.selectBookTitle);
 
 	
