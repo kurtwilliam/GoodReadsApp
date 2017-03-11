@@ -57,12 +57,19 @@ bookApp.firebase = function(){
 // 	// on submit function, prevent default 
 	$('.user').on('submit', function(e){
 		e.preventDefault();
-		bookApp.username = $('input[name=user]').val();
-		console.log(bookApp.username);
-		bookApp.dbRef = firebase.database().ref(bookApp.username);
-		bookApp.showData();
+		if ('input[name=user]' !== '') {
+			bookApp.username = $('input[name=user]').val();
+			console.log(bookApp.username);
+			bookApp.dbRef = firebase.database().ref(bookApp.username);
+			// bookApp.dbRef.push();
+			bookApp.showData();
+			$('.userInput').val('');
+		} else {
+			alert('Please enter a username!');
+		}
+		
 
-		// dbRef.push();
+		
 		// Store data to send to database in a var
 		// var chosenBook = 
 
@@ -99,7 +106,13 @@ bookApp.events = function(){
 		$('main').removeClass('mainHidden');
 		$('.userForm').addClass('userFormHidden');
 		bookApp.findAuthor(authorName);
+		// Prevent submission of homepage search if both fields are empty
+		// if ($('') {
+
+		// });
 	});
+
+	
 
 	// Click event to add to users collection here
 	$('.booksToDiscover').on("click", ".chosenBook", function(e){
@@ -107,9 +120,19 @@ bookApp.events = function(){
 		var bookTitle = $(this).attr('value');
 		// console.log("title", bookApp.displayTitle);
 		bookApp.dbRef.push(bookTitle);
-		// bookApp.dbRef.on('value', (data) => {
 
-		// });
+		// Append Data to the .headerBottom class div!
+		bookApp.dbRef.on('value', (data) => {
+			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
+			console.log(chosenBookEl);
+			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
+
+			// let bookImage = $('<img>').attr("src", book.image_url);
+			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
+			// 	title: book.title,	
+			// });
+			// let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
+		});
 		// const userCollection = firebase.database().ref('/users');
 
 		// userCollection.push({name: 'Rick Sanchez'});
@@ -219,7 +242,7 @@ bookApp.displayInfo = function(bookData){
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
 				title: book.title,	
 			});
-			let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
+			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
 
 			$('.booksToDiscover').append(bookDisplay);
 			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
