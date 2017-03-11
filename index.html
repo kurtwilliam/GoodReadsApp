@@ -11,26 +11,17 @@
 	<header>
 		<div class="initStyle header">
 			<h1>bookshare</h1>
-			<h2>choose your author</h2>
-			<form id="userSearch" autocomplete="off" action="submit">
-				<input type="text" placeholder="eg. Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch">
-				<button type="submit" for="search"><i class="fa fa-search" aria-hidden="true"></i></button>
-			</form>
-			<div class="loginModal">
-				<button class="existingUser">existing user</button>
-				<p> / </p>
-				<button class="newUser">new user</button>
-				<form action='' class="existSignIn">
-					<label for="email">Enter your email</label>
-					<input type="email" name="email">
-					<label for="password">Enter your password</label>
-					<input type="password" name="password">
-				</form>
-				<form action='' class="newSignIn">
-					<label for="email">Enter your email</label>
-					<input type="email" name="email">
-					<label for="password">Enter your password</label>
-					<input type="password" name="password">
+			<div class="userForm userSearch">
+				<form action="" class="user">
+					<label for="user" class="userInput">Enter your Username</label>
+					<input type="text" name="user" id="userForm" class="userInput" placeholder="ex. sillywilly123">
+				<!-- </form> -->
+			<!-- </div> -->
+				<!-- <h2>choose your author</h2> -->
+				<!-- <form id="userSearch" autocomplete="off" action="submit"> -->
+					<label for="">choose your author</label>
+					<input type="text" value="Judy Blume" placeholder="eg. Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch" required>
+					<button type="submit" for="search"><i class="fa fa-search" aria-hidden="true"></i></button>
 				</form>
 			</div>
 		</div>
@@ -56,7 +47,7 @@
 		</div>
 	</footer>
 
-<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="dev/scripts/main.js">
 	
