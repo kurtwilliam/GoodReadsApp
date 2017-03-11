@@ -221,11 +221,10 @@ bookApp.findBooks = function(authorID){
 
 
 bookApp.displayInfo = function(bookData){
-	let goodReadsObjects = bookData.filter(function(bookArray){
-		let authorName = $('#search').val();
-		return bookArray.GoodreadsResponse.author.name === authorName;
-	});
-	goodReadsObjects.forEach(function(obj){
+	// let goodReadsObjects = bookData.filter(function(bookArray){
+	// 	let authorName = $('#search').val();
+	// 	return bookArray.GoodreadsResponse.author.name === authorName;
+bookData.forEach(function(obj){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
 
