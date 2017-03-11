@@ -59,7 +59,7 @@ bookApp.firebase = function(){
 		e.preventDefault();
 		if ('input[name=user]' !== '') {
 			bookApp.username = $('input[name=user]').val();
-			console.log(bookApp.username);
+			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
 			// bookApp.dbRef.push();
 			bookApp.showData();
@@ -130,6 +130,7 @@ bookApp.events = function(){
 		e.preventDefault();
 		bookApp.selectBookTitle = $(this).attr('value');
 		// console.log("title", bookApp.displayTitle);
+
 		bookApp.dbRef.push(bookApp.selectBookTitle);
 
 	
@@ -236,7 +237,11 @@ bookData.forEach(function(obj){
 			bookApp.displayTitle = book.title;
 			bookApp.bookTitle = $('<h3>').html(book.title);
 			let bookDescription = $('<p>').html(book.description);
+			
 			let bookImage = $('<img>').attr("src", book.image_url);
+			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
+				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
+			}
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
 				title: book.title,	
 			});
