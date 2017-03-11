@@ -108,8 +108,6 @@ bookApp.events = function(){
 		// });
 	});
 
-	
-
 	// Click event to add to users collection here
 	$('.booksToDiscover').on("click", ".chosenBook", function(e){
 		e.preventDefault();
