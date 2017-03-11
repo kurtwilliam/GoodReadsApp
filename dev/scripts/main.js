@@ -1,12 +1,12 @@
 // Initialize Firebase
-const config = {
- apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
- authDomain: "good-reads-ad835.firebaseapp.com",
- databaseURL: "https://good-reads-ad835.firebaseio.com",
- storageBucket: "good-reads-ad835.appspot.com",
- messagingSenderId: "476385763960"
-};
-firebase.initializeApp(config);
+var config = {
+    apiKey: "AIzaSyAh0zkAQ0D0JcZzn6-hfmB9Wcsz8BLg0Yw",
+    authDomain: "good-reads-ad835.firebaseapp.com",
+    databaseURL: "https://good-reads-ad835.firebaseio.com",
+    storageBucket: "good-reads-ad835.appspot.com",
+    messagingSenderId: "476385763960"
+  };
+  firebase.initializeApp(config);
 
 // FIREBASE New User Sign Up
 // firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -55,13 +55,12 @@ const bookApp = {};
 
 bookApp.firebase = function(){
 // 	// on submit function, prevent default 
-	$('#userSearch').on('submit', function(e){
+	$('.user').on('submit', function(e){
 		e.preventDefault();
-		console.log('meeeee');
 		bookApp.username = $('input[name=user]').val();
+		console.log(bookApp.username);
 		bookApp.dbRef = firebase.database().ref(bookApp.username);
 		bookApp.showData();
-		// console.log("sdfsdfsdfsdfsdf", dbRef);
 
 		// dbRef.push();
 		// Store data to send to database in a var
@@ -77,7 +76,7 @@ bookApp.firebase = function(){
 // retrieve information from firebase
 bookApp.showData =function() {
 	bookApp.dbRef.on('value', (data) => {
-		console.log(data.val())
+		// console.log(data.val())
 	});
 }
 
@@ -95,16 +94,11 @@ bookApp.events = function(){
 		$(".booksToDiscover").empty();
 
 		let authorName = $("#search").val();
-		// $('header').css("width", "330px");
 		$('.header').removeClass('initStyle').addClass('style');
 		$('.headerBottom').removeClass('yourBooksHidden').addClass('yourBooks');
 		$('main').removeClass('mainHidden');
-		$('.loginModal').addClass('signInHidden');
+		$('.userForm').addClass('userFormHidden');
 		bookApp.findAuthor(authorName);
-	});
-
-	$('.bookDisplay').click(function(e){
-		$('.modal').removeClass('modalHidden');
 	});
 
 	// Click event to add to users collection here
@@ -116,6 +110,9 @@ bookApp.events = function(){
 		// bookApp.dbRef.on('value', (data) => {
 
 		// });
+		// const userCollection = firebase.database().ref('/users');
+
+		// userCollection.push({name: 'Rick Sanchez'});
 	});
 };
 
