@@ -59,7 +59,7 @@ bookApp.firebase = function(){
 		e.preventDefault();
 		if ('input[name=user]' !== '') {
 			bookApp.username = $('input[name=user]').val();
-			console.log(bookApp.username);
+			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
 			// bookApp.dbRef.push();
 			bookApp.showData();
@@ -118,9 +118,10 @@ bookApp.events = function(){
 		// Append Data to the .headerBottom class div!
 		bookApp.dbRef.on('value', (data) => {
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
-			$('chosenBookEl').remove();
+			chosenBookEl.remove();
 			console.log(chosenBookEl);
-			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
+			// console.log(this, 'look');
+			let chosenBookDisp = $('.headerBottom').append(this);
 
 			// let bookImage = $('<img>').attr("src", book.image_url);
 			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
