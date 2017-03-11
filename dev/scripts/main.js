@@ -118,7 +118,7 @@ bookApp.events = function(){
 		// Append Data to the .headerBottom class div!
 		bookApp.dbRef.on('value', (data) => {
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
-			// $('.chosenBookEl').remove();
+			$('chosenBookEl').remove();
 			console.log(chosenBookEl);
 			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
 
