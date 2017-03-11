@@ -148,7 +148,7 @@ bookApp.findBooks = function(authorID){
 		// let image = res.GoodreadsResponse.author.book.book.image_url;
 		// bookApp.displayInfo(bookInfo);
 		console.log(res);
-		};
+		});
 };
 
 
