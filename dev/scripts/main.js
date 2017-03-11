@@ -237,7 +237,11 @@ bookData.forEach(function(obj){
 			bookApp.displayTitle = book.title;
 			bookApp.bookTitle = $('<h3>').html(book.title);
 			let bookDescription = $('<p>').html(book.description);
+			
 			let bookImage = $('<img>').attr("src", book.image_url);
+			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
+				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
+			}
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
 				title: book.title,	
 			});
