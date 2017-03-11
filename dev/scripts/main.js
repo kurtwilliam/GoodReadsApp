@@ -68,10 +68,13 @@ bookApp.firebase = function(){
 
 				// Append Data to the .headerBottom class div!
 		bookApp.dbRef.on('value', function(data){
+			if (bookApp.selectBookTitle !== undefined) {
+
+			
 			$('chosenBookEl').empty();
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookApp.selectBookTitle}`);
 			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
-			
+			}
 
 			// let bookImage = $('<img>').attr("src", book.image_url);
 			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
