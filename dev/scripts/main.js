@@ -238,7 +238,6 @@ bookApp.displayInfo = function(bookData){
 				title: book.title,	
 			});
 			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
-
 			$('.booksToDiscover').append(bookDisplay);
 			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
 		})
