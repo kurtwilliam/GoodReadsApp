@@ -216,17 +216,15 @@ bookApp.findBooks = function(authorID){
 		// let title = res.GoodreadsResponse.author.books.book.title;
 		// let image = res.GoodreadsResponse.author.book.book.image_url;
 		// bookApp.displayInfo(bookInfo);
-		console.log(res);
 		});
 };
 
 
 bookApp.displayInfo = function(bookData){
-	let goodReadsObjects = bookData.filter(function(bookArray){
-		let authorName = $('#search').val();
-		return bookArray.GoodreadsResponse.author.name === authorName;
-	});
-	goodReadsObjects.forEach(function(obj){
+	// let goodReadsObjects = bookData.filter(function(bookArray){
+	// 	let authorName = $('#search').val();
+	// 	return bookArray.GoodreadsResponse.author.name === authorName;
+bookData.forEach(function(obj){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
 
