@@ -13,8 +13,14 @@ body {
 	display:flex;
 	flex-wrap: wrap;
 	background:linear-gradient( to bottom right, #F8D046, #FFFFFF, #ABC8D0);
+	@media (max-width: 800px) {
+	display: flex;
+	flex-direction: column;
+	}
+
 
 }
+
 
 h1, h2 {
 	font-family: "Oswald", sans-serif;
