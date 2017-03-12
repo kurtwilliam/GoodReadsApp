@@ -259,4 +259,11 @@ bookData.forEach(function(obj){
 
 $(function(){
 	bookApp.init();
+
+	const body = $('body');
+
+	$(document).on({
+		ajaxStart: function() {body.addClass("loading");},
+		ajaxStop: function() {body.removeClass("loading");}
+	});
 });
