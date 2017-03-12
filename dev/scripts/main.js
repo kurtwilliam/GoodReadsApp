@@ -61,7 +61,6 @@ bookApp.firebase = function(){
 			bookApp.username = $('input[name=user]').val();
 			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
-			// bookApp.dbRef.push();
 			bookApp.showData();
 			$('.userInput').val('');
 		}
@@ -132,7 +131,6 @@ bookApp.events = function(){
 		// console.log("title", bookApp.displayTitle);
 
 		bookApp.dbRef.push(bookApp.selectBookTitle);
-
 	
 		// const userCollection = firebase.database().ref('/users');
 
