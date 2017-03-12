@@ -138,6 +138,11 @@ bookApp.events = function(){
 
 		// userCollection.push({name: 'Rick Sanchez'});
 	});
+
+	$('.bookDescript').on("click", ".modal", function(e){
+		e.preventDefault();
+		modal.style.display = "block";
+	});
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -242,11 +247,11 @@ bookData.forEach(function(obj){
 			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
 				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
 			}
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('What\'s it all about?')
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
 				title: book.title,	
 			});
-			bookApp.descriptionButton = $(`<button class="bookDescript" value="${book.description}">`).html('Plot Summary')
-			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
+			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.descriptionButton, bookApp.bookButton);
 			$('.booksToDiscover').append(bookDisplay);
 			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
 		})

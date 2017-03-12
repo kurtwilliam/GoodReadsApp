@@ -40,6 +40,15 @@ main{
 	}
 }
 
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 200;
+	width: 100%;
+	overflow: auto;
+	background-color: green;
+}
+
 .userFormHidden {
 	display: none;
 }
