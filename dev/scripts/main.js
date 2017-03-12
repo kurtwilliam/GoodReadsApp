@@ -131,9 +131,11 @@ bookApp.events = function(){
 		// console.log("title", bookApp.displayTitle);
 
 		bookApp.dbRef.push(bookApp.selectBookTitle);
-	
-		// const userCollection = firebase.database().ref('/users');
-
+		
+		// Remove on click
+		// $('.userBookButton').click('h4', function(e) {
+		// 	firebase.database().ref(this).child().remove();
+		// });
 		// userCollection.push({name: 'Rick Sanchez'});
 	});
 };
