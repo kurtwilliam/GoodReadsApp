@@ -59,11 +59,28 @@ bookApp.firebase = function(){
 		e.preventDefault();
 		if ('input[name=user]' !== '') {
 			bookApp.username = $('input[name=user]').val();
-			console.log(bookApp.username);
+			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
 			bookApp.showData();
 			$('.userInput').val('');
 		}
+
+				// Append Data to the .headerBottom class div!
+		bookApp.dbRef.on('value', function(data){
+			if (bookApp.selectBookTitle !== undefined) {
+
+			
+			$('chosenBookEl').empty();
+			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookApp.selectBookTitle}`);
+			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
+			}
+
+			// let bookImage = $('<img>').attr("src", book.image_url);
+			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
+			// 	title: book.title,	
+			// });
+			// let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
+		});
 		
 		// Store data to send to database in a var
 		// var chosenBook = 
@@ -83,8 +100,8 @@ bookApp.showData =function() {
 }
 
 bookApp.init = function(){
-	bookApp.events();
 	bookApp.firebase();
+	bookApp.events();
 };
 
 const goodreadsKey = '3Hm2ArDCENyN8Hp1Xu8GBQ';
@@ -110,23 +127,11 @@ bookApp.events = function(){
 	// Click event to add to users collection here
 	$('.booksToDiscover').on("click", ".chosenBook", function(e){
 		e.preventDefault();
-		var bookTitle = $(this).attr('value');
+		bookApp.selectBookTitle = $(this).attr('value');
 		// console.log("title", bookApp.displayTitle);
-		bookApp.dbRef.push(bookTitle);
 
-		// Append Data to the .headerBottom class div!
-		bookApp.dbRef.on('value', (data) => {
-			$(".headerBottom").empty();
-			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
-			console.log(chosenBookEl);
-			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
-
-			// let bookImage = $('<img>').attr("src", book.image_url);
-			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
-			// 	title: book.title,	
-			// });
-			// let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
-		});
+		bookApp.dbRef.push(bookApp.selectBookTitle);
+	
 		// const userCollection = firebase.database().ref('/users');
 
 		// userCollection.push({name: 'Rick Sanchez'});
@@ -230,10 +235,15 @@ bookData.forEach(function(obj){
 			bookApp.displayTitle = book.title;
 			bookApp.bookTitle = $('<h3>').html(book.title);
 			let bookDescription = $('<p>').html(book.description);
+			
 			let bookImage = $('<img>').attr("src", book.image_url);
+			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
+				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
+			}
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
 				title: book.title,	
 			});
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="${book.description}">`).html('Plot Summary')
 			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
 			$('.booksToDiscover').append(bookDisplay);
 			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
