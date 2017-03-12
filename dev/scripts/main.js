@@ -137,11 +137,6 @@ bookApp.events = function(){
 		// userCollection.push({name: 'Rick Sanchez'});
 	});
 
-	$('.bookDescript').on("click", function(e){
-		e.preventDefault();
-		$('.modal').toggleClass('.modalHidden');
-		// modal.style.display = "block";
-	});
 };
 
 // Make a first call to the API based on the users input (authors name), in submit event above. 
@@ -247,13 +242,21 @@ bookData.forEach(function(obj){
 				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
 			}
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('<i class="fa fa-plus-circle" aria-hidden="true"></i>').data({
-				title: book.title,	});
-			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('<i class="fa fa-question-circle" aria-hidden="true"></i>')
-			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.descriptionButton, bookApp.bookButton);
+				title: book.title});
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('<i class="fa fa-question-circle" aria-hidden="true"></i>');
+			var allButtons = $('<div class="bookIcons">').append(bookApp.descriptionButton, bookApp.bookButton);
+			let bookDisplay = $('<div class="bookDiv">').append(bookImage, bookApp.bookTitle, allButtons);
 			
 			$('.booksToDiscover').append(bookDisplay);
-			$('.modal').append(bookApp.descriptionButton, bookApp.bookTitle, bookApp.bookButton);
+			$('.modalHidden').append(bookApp.descriptionButton, bookApp.bookTitle, bookApp.bookButton);
+
 		})
+	});
+		$('.bookDescript').click(function(e){
+		e.preventDefault();
+		$('.modal').removeClass('modalHidden');
+		// modal.style.display = "block";
+		console.log($(this).val());
 	});
 };
 
