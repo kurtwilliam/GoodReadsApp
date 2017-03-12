@@ -61,7 +61,6 @@ bookApp.firebase = function(){
 			bookApp.username = $('input[name=user]').val();
 			console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
-			// bookApp.dbRef.push();
 			bookApp.showData();
 			$('.userInput').val('');
 		}
@@ -117,8 +116,8 @@ bookApp.events = function(){
 
 		// Append Data to the .headerBottom class div!
 		bookApp.dbRef.on('value', (data) => {
+			$(".headerBottom").empty();
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookTitle}`);
-			$('chosenBookEl').remove();
 			console.log(chosenBookEl);
 			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
 
