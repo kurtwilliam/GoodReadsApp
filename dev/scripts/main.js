@@ -137,9 +137,10 @@ bookApp.events = function(){
 		// userCollection.push({name: 'Rick Sanchez'});
 	});
 
-	$('.bookDescript').on("click", ".modal", function(e){
+	$('.bookDescript').on("click", function(e){
 		e.preventDefault();
-		modal.style.display = "block";
+		$('.modal').toggleClass('.modalHidden');
+		// modal.style.display = "block";
 	});
 };
 
@@ -246,13 +247,12 @@ bookData.forEach(function(obj){
 				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
 			}
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('<i class="fa fa-plus-circle" aria-hidden="true"></i>').data({
-				title: book.title,	
-			});
-			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('What\'s it all about?')
+				title: book.title,	});
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('<i class="fa fa-question-circle" aria-hidden="true"></i>')
 			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.descriptionButton, bookApp.bookButton);
 			
 			$('.booksToDiscover').append(bookDisplay);
-			$('.modal').append(bookDescription, bookApp.bookTitle, bookApp.bookButton);
+			$('.modal').append(bookApp.descriptionButton, bookApp.bookTitle, bookApp.bookButton);
 		})
 	});
 };
