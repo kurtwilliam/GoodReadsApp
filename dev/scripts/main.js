@@ -61,7 +61,6 @@ bookApp.firebase = function(){
 			bookApp.username = $('input[name=user]').val();
 			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
-			// bookApp.dbRef.push();
 			bookApp.showData();
 			$('.userInput').val('');
 		}
@@ -132,7 +131,6 @@ bookApp.events = function(){
 		// console.log("title", bookApp.displayTitle);
 
 		bookApp.dbRef.push(bookApp.selectBookTitle);
-
 	
 		// const userCollection = firebase.database().ref('/users');
 
@@ -247,13 +245,14 @@ bookData.forEach(function(obj){
 			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
 				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
 			}
-			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('What\'s it all about?')
-			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
+			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('<i class="fa fa-plus-circle" aria-hidden="true"></i>').data({
 				title: book.title,	
 			});
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('What\'s it all about?')
 			let bookDisplay = $('<div class="bookDiv">').append(bookApp.bookTitle, bookImage, bookApp.descriptionButton, bookApp.bookButton);
+			
 			$('.booksToDiscover').append(bookDisplay);
-			$('.modal').append(bookApp.bookTitle, bookDescription, bookApp.bookButton);
+			$('.modal').append(bookDescription, bookApp.bookTitle, bookApp.bookButton);
 		})
 	});
 };

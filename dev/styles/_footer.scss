@@ -4,7 +4,7 @@ footer{
 	left:0;
 	right:0;
 	width:100%;
-	padding:20px 60px;
+	padding:10px 60px;
 	display:flex;
 	justify-content: space-between;
 	color:white;	
@@ -12,16 +12,17 @@ footer{
 	a{
 		text-decoration: none;
 		color:white;
-		margin: 10px;
 		font-size:1.2rem;
 	}
 	a:hover {
-		background: #f6c417;
+		border-bottom: 1px solid white;
+		padding-bottom: 3px;
 	}
-	div.footerLeft a {
-		margin: 0;
+	div.footerCenter a {
+		margin-right: 10px;
 	}
 	p{
 		font-size:1.2rem;
+		font-weight: 400;
 	}
 }
