@@ -12,6 +12,7 @@ body {
 	position: relative;
 	display:flex;
 	flex-wrap: wrap;
+	background:linear-gradient( to bottom right, #F8D046, #FFFFFF, #ABC8D0);
 
 }
 
@@ -23,14 +24,6 @@ h1, h2 {
 form #userSearch {
 	width: 80%;
 	margin: 0 auto;
-}
-
-input .largeSearch {
-	
-}
-
-input .sideSearch{
-
 }
 
 .container {

@@ -2,31 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Good Reads</title>
+	<title>Bookshare</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="public/styles/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Oswald:300,500|Roboto:400,400i" rel="stylesheet">
+	<link rel="icon" href="Assets/bookshare-favicon.png">
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,500|Roboto:300,400" rel="stylesheet">
 </head>
 <body>
 	<header>
 		<div class="initStyle header">
-			<h1>bookshare</h1>
+			<h1>Bookshare</h1>
 			<div class="userForm userSearch">
 				<form action="" class="user" autocomplete="off">
 					<label for="user" class="userInput">Enter your Username</label>
-					<input type="text" name="user" id="userForm" class="userInput" placeholder="ex. Cool Story Poe" required>
+					<input type="text" name="user" id="userForm" class="userInput" placeholder="John Doe" required>
 				<!-- </form> -->
 			<!-- </div> -->
 				<!-- <h2>choose your author</h2> -->
 				<!-- <form id="userSearch" autocomplete="off" action="submit"> -->
-					<label for="">choose your author</label>
-					<input type="text" placeholder="eg. Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch" required>
-					<button type="submit" for="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+					<label for="">Choose your author</label>
+					<input type="text" placeholder="Kurt Vonnegut" id="search" name="search" class="largeSearch sideSearch" required>
+					<button type="submit" for="search">
+					<!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+					Search
+					</button>
 				</form>
 			</div>
 		</div>
 		<div class="headerBottom yourBooksHidden">
-			<h2>your chosen books</h2>
+			<h2>Your chosen books</h2>
 		</div>
 	</header>
 	<main class="mainHidden">
@@ -38,12 +42,15 @@
 		<div class="footerLeft">
 			<p>Created with <a href="https://www.goodreads.com/api/">Good Reads API</a></p>
 		</div>
-		<div class="footerRight">
+		<div class="footerCenter">
 			<p>
 				<a href="http://www.itsrennie.com">Rennie Cee</a>
 				<a href="http://www.kurtwilliam.com">Kurt Schneider</a>
 				<a href="http://www.darshanasen.com">Darshana Sen</a>
 			</p>
+		</div>
+		<div class="footerRight">
+			<p>Book by Oksana Latysheva from the Noun Project</p>
 		</div>
 	</footer>
 
