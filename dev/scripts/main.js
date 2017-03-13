@@ -8,39 +8,6 @@ var config = {
   };
   firebase.initializeApp(config);
 
-// FIREBASE New User Sign Up
-// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   // ...
-// });
-
-// FIREBASE Existing User Sign In
-//firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   // ...
-// });
-
-// firebase.auth().onAuthStateChanged(function(user) {
-//   if (user) {
-//     // User is signed in.
-//     var displayName = user.displayName;
-//     var email = user.email;
-//     var emailVerified = user.emailVerified;
-//     var photoURL = user.photoURL;
-//     var isAnonymous = user.isAnonymous;
-//     var uid = user.uid;
-//     var providerData = user.providerData;
-//     // ...
-//   } else {
-//     // User is signed out.
-//     // ...
-//   }
-// });
-
 // ADD TO COLLECTION BUTTON
 // 1. Check if user is signed in!
 //	2. If signed in, add to collection
@@ -59,7 +26,6 @@ bookApp.firebase = function(){
 		e.preventDefault();
 		if ('input[name=user]' !== '') {
 			bookApp.username = $('input[name=user]').val();
-			// console.log(bookApp.username);
 			bookApp.dbRef = firebase.database().ref(bookApp.username);
 			bookApp.showData();
 			$('.userInput').val('');
@@ -74,12 +40,6 @@ bookApp.firebase = function(){
 			let chosenBookEl = $('<h4 class="chosenBookEl">').html(`${bookApp.selectBookTitle}`);
 			let chosenBookDisp = $('.headerBottom').append(chosenBookEl);
 			}
-
-			// let bookImage = $('<img>').attr("src", book.image_url);
-			// bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('Add to Collection').data({
-			// 	title: book.title,	
-			// });
-			// let bookDisplay = $('<div class="bookSelect">').append(bookApp.bookTitle, bookImage, bookApp.bookButton);
 		});
 		
 		// Store data to send to database in a var
@@ -95,7 +55,6 @@ bookApp.firebase = function(){
 // retrieve information from firebase
 bookApp.showData =function() {
 	bookApp.dbRef.on('value', (data) => {
-		// console.log(data.val())
 	});
 }
 
@@ -128,15 +87,8 @@ bookApp.events = function(){
 	$('.booksToDiscover').on("click", ".chosenBook", function(e){
 		e.preventDefault();
 		bookApp.selectBookTitle = $(this).attr('value');
-		// console.log("title", bookApp.displayTitle);
 
 		bookApp.dbRef.push(bookApp.selectBookTitle);
-		
-		// Remove on click
-		// $('.userBookButton').click('h4', function(e) {
-		// 	firebase.database().ref(this).child().remove();
-		// });
-		// userCollection.push({name: 'Rick Sanchez'});
 	});
 
 };
@@ -194,7 +146,6 @@ bookApp.findBooks = function(authorID){
 		}
 	}).then(function(res){
 		res = res.GoodreadsResponse;
-		// console.log(res);
 		const totalBooks = res.author.books.total;
 		const pageNums = Math.ceil(totalBooks/30);
 		if(totalBooks < 30) {
@@ -219,10 +170,6 @@ bookApp.findBooks = function(authorID){
 					bookApp.displayInfo(bookData);
 				});
 		}
-		// let author = res.GoodreadsResponse.author.name;
-		// let title = res.GoodreadsResponse.author.books.book.title;
-		// let image = res.GoodreadsResponse.author.book.book.image_url;
-		// bookApp.displayInfo(bookInfo);
 		});
 };
 
@@ -231,8 +178,6 @@ bookApp.displayInfo = function(bookData){
 	// let goodReadsObjects = bookData.filter(function(bookArray){
 	// 	let authorName = $('#search').val();
 	// 	return bookArray.GoodreadsResponse.author.name === authorName;
-
-// 
 bookData.forEach(function(obj){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
