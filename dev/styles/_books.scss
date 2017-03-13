@@ -59,18 +59,37 @@ main{
 	}
 }
 
-.modalHidden{
-	display:none;
-}
-
 .modal {
-	display: block;
-	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top:0;
+	left:0;
 	z-index: 200;
 	width: 100%;
-	height: 50vh;
+	height: 100vh;
 	overflow: auto;
-	background-color: green;
+	background-color: rgba(0,0,0,0);
+	.modalInside{
+		background-color: white;
+		width:70%;
+		height:auto;
+		padding:20px;
+		box-shadow: 0px 10px 40px 0 rgba(0,0,0,0.35);
+		@media (max-width: 800px) {
+			width: 85%;
+		}
+		p{
+			@media (max-width: 800px) {
+			font-size: 1.2rem;
+			}
+		}
+	}
+}
+
+.modalHidden{
+	display:none;
 }
 
 .userFormHidden {
@@ -88,12 +107,12 @@ button.chosenBook, .bookDescript {
 	}
 }
 
-.loginModal{
-	padding:20px; 
-	z-index: 100;
-	width:auto;
-	height:auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+// .loginModal{
+// 	padding:20px; 
+// 	z-index: 100;
+// 	width:auto;
+// 	height:auto;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// }

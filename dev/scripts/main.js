@@ -231,34 +231,49 @@ bookApp.displayInfo = function(bookData){
 	// let goodReadsObjects = bookData.filter(function(bookArray){
 	// 	let authorName = $('#search').val();
 	// 	return bookArray.GoodreadsResponse.author.name === authorName;
+
+// 
 bookData.forEach(function(obj){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
 
 			bookApp.displayTitle = book.title;
 			bookApp.bookTitle = $('<h3>').html(book.title);
-			let bookDescription = $('<p>').html(book.description);
+			bookApp.bookDescription = $('<p>').html(book.description);
 			
 			let bookImage = $('<img>').attr("src", book.image_url);
 			if (book.image_url === "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png") {
 				bookImage = $('<img>').attr("src", "../../Assets/cover-img.png");
 			}
+
+			// Make add to collection button appear with value of book title, we an call later
 			bookApp.bookButton = $(`<button class="chosenBook" value="${book.title}">`).html('<i class="fa fa-plus-circle" aria-hidden="true"></i>').data({
 				title: book.title});
-			bookApp.descriptionButton = $(`<button class="bookDescript" value="${bookDescription}">`).html('<i class="fa fa-question-circle" aria-hidden="true"></i>');
-			var allButtons = $('<div class="bookIcons">').append(bookApp.descriptionButton, bookApp.bookButton);
+
+			// Make ? button with value of book info, so we can call it later
+			bookApp.descriptionButton = $(`<button class="bookDescript" value="<h3>${book.title}</h3><p>${book.description}</p>">`).html('<i class="fa fa-question-circle" aria-hidden="true"></i>');
+			let allButtons = $('<div class="bookIcons">').append(bookApp.descriptionButton, bookApp.bookButton);
 			let bookDisplay = $('<div class="bookDiv">').append(bookImage, bookApp.bookTitle, allButtons);
 			
 			$('.booksToDiscover').append(bookDisplay);
-			$('.modalHidden').append(bookApp.descriptionButton, bookApp.bookTitle, bookApp.bookButton);
-
+			// $('.modal').append(bookApp.bookTitle, bookDescription, );
 		})
 	});
-		$('.bookDescript').click(function(e){
+	// Make modal appear on ? button click and append title + description
+	$('.bookDescript').click(function(e){
 		e.preventDefault();
+		let thisBookDesc = $(this).val();
+		$('.modalInside').append(thisBookDesc);
 		$('.modal').removeClass('modalHidden');
+	});
+	// Make Modal disappear on ? button click
+	$('.modal').click(function(e){
+		e.preventDefault();
+
+		$('.modal').addClass('modalHidden');
 		// modal.style.display = "block";
-		console.log($(this).val());
+		// console.log(this);
+		$('.modalInside').empty();
 	});
 };
 
