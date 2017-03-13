@@ -223,17 +223,18 @@ bookApp.findBooks = function(authorID){
 		// let title = res.GoodreadsResponse.author.books.book.title;
 		// let image = res.GoodreadsResponse.author.book.book.image_url;
 		// bookApp.displayInfo(bookInfo);
-		});
+	});
 };
 
 
 bookApp.displayInfo = function(bookData){
+	// filter books to only equal the requested author, but broke early
 	// let goodReadsObjects = bookData.filter(function(bookArray){
 	// 	let authorName = $('#search').val();
 	// 	return bookArray.GoodreadsResponse.author.name === authorName;
 
-// 
-bookData.forEach(function(obj){
+	// create global variables for most of the book info, then append info to the page upon submission of the author
+	bookData.forEach(function(obj){
 		const authorsBooks = obj.GoodreadsResponse.author.books.book;
 		authorsBooks.forEach(function(book){
 
@@ -256,7 +257,6 @@ bookData.forEach(function(obj){
 			let bookDisplay = $('<div class="bookDiv">').append(bookImage, bookApp.bookTitle, allButtons);
 			
 			$('.booksToDiscover').append(bookDisplay);
-			// $('.modal').append(bookApp.bookTitle, bookDescription, );
 		})
 	});
 	// Make modal appear on ? button click and append title + description
@@ -277,6 +277,7 @@ bookData.forEach(function(obj){
 	});
 };
 
+// Call function and add loading icon
 $(function(){
 	bookApp.init();
 
